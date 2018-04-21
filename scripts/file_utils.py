@@ -1,4 +1,3 @@
-
 import os
 
 import aws_s3_utility
@@ -9,10 +8,10 @@ def is_valid(key):
 
 def load_key(filepath):
     assert os.path.exists(filepath), 'filepath: {} not found'.format(filepath)
-    
+
     key = None
-    with open(filepath, 'rb') as f:
-        key = f.readline()
+    with open(filepath, 'r') as f:
+        key = f.readline().strip()
     if is_valid(key):
         return key
     else:

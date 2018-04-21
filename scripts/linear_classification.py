@@ -20,9 +20,9 @@ def run_classifier(feature_set, loss):
     classifier = linear_model.SGDClassifier(loss, n_iter=50, alpha=1e-4,  verbose=1)
     classifier.fit(train, y_train)
     acc = classifier.score(val, y_val)
-    print 'validation accuracy: {}'.format(acc)
+    print('validation accuracy: {}'.format(acc))
     acc = classifier.score(test, y_test)
-    print 'validation accuracy: {}'.format(acc)
+    print('validation accuracy: {}'.format(acc))
     
 def parse_args():
     """

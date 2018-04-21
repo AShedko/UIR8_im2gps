@@ -1,7 +1,6 @@
 """
 :description: Utilities for loading in, preprocessing, and organizing data.
 """
-import cv2
 import glob
 import numpy as np
 import os
@@ -31,7 +30,7 @@ def get_all_image_filepaths(dataset_dir, pattern):
 def generate_train_split(labels):
     # randomly determine the set of train locations
     train_split = set()
-    for filepath, label in labels.iteritems():
+    for filepath, label in labels.items():
         if random.random() < TRAIN_RATIO:
             train_split.add(filepath)
     return train_split
@@ -70,7 +69,7 @@ def write_labels_file(dataset_dir, train_output_filepath, val_output_filepath, t
         if filename in image_labels:    
             label = image_labels[filename]
         else:
-            print 'cant find label'
+            print('cant find label')
             continue
         
         string = '{} {}\n'.format(filename, label)
@@ -80,23 +79,23 @@ def write_labels_file(dataset_dir, train_output_filepath, val_output_filepath, t
             val_lines.append(string)        
 
     # write city labels to file
-    with open(city_labels_filepath, 'wb') as f:
-        for city, cidx in city_labels.iteritems():
-            f.write('{} {}\n'.format(city, cidx))
+    with open(city_labels_filepath, 'w') as f:
+        for city, cidx in city_labels.items():
+            f.write('{} {}\n'.format(city,cidx))
             
     # write train lines to file
-    with open(train_output_filepath, 'wb') as f:
+    with open(train_output_filepath, 'w') as f:
         f.writelines(np.random.permutation(train_lines))
         
     # split val into test and val using mid point
-    mid = len(val_lines) / 2
+    mid = len(val_lines) // 2
 
     # write val lines to file
-    with open(val_output_filepath, 'wb') as f:
+    with open(val_output_filepath, 'w') as f:
         f.writelines(np.random.permutation(val_lines[:mid]))
 
     # write test lines to file
-    with open(test_output_filepath, 'wb') as f:
+    with open(test_output_filepath, 'w') as f:
         f.writelines(np.random.permutation(val_lines[mid:]))
 
 if __name__ == '__main__':

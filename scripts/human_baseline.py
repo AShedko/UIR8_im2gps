@@ -1,6 +1,5 @@
 
 
-import cv2
 import numpy as np
 import os
 import random
@@ -27,7 +26,7 @@ def get_images(num_images, dataset_dir):
         img_id = str(random.randint(MIN_ID, MAX_ID)).zfill(6)
         perspective = str(random.choice(PERSPECTIVES))
         request_url = URL.format(img_id, perspective)
-        print 'downloading image at: {}'.format(request_url)
+        print('downloading image at: {}'.format(request_url))
         outfile = os.path.join(DATASET_DIR, '{}_{}.jpg'.format(img_id, perspective))
         urllib.urlretrieve(request_url, outfile)
 

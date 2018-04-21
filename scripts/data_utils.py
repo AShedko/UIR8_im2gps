@@ -283,7 +283,7 @@ def write_labels_file(dataset_dir, train_output_filepath, val_output_filepath, t
         if img_id in labels:    
             label = labels[img_id]
         else:
-            print 'cant find label'
+            print('cant find label')
         string = '{} {}\n'.format(filename, label)
         if img_id in train_split:
             train_lines.append(string)
