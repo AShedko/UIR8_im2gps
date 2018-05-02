@@ -1,0 +1,13 @@
+Barcelona 0
+DC 1
+Detroit 2
+London 3
+Moscow 4
+NYC 5
+Paris 6
+Rio 7
+SanFran 8
+Sydney 9
+test 10
+train 11
+val 12

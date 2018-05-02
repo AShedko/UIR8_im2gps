@@ -1,4 +1,5 @@
-import caffe
+import torch
+import torchvision
 import numpy as np
 import os
 import sys
@@ -18,8 +19,7 @@ def crop_center(img):
     return img[16:-16,16:-16,:]
 
 def main():
-    caffe.set_mode_gpu()
-    
+
     blob = caffe.proto.caffe_pb2.BlobProto()
     data = open(mean_path, 'rb').read()
     blob.ParseFromString(data)
