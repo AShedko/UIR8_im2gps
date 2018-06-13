@@ -1,4 +1,3 @@
-
 import math
 import os
 import random
@@ -42,7 +41,7 @@ KEY_FILEPATH = "/home/ashedko/Projects/UIR/im2gps/LittlePlaNet/api_key.key"
 API_KEY = file_utils.load_key(KEY_FILEPATH)
 GOOGLE_URL = ("http://maps.googleapis.com/maps/api/streetview?"
               "size=256x256&fov=120&pitch=10&key=" + API_KEY)
-IMAGES_DIR = '../data/cities/'
+IMAGES_DIR = '../data/alb_cities/'
 
 
 def download_images_for_city(city, lat, lon):
@@ -80,19 +79,19 @@ def download_images_for_city(city, lat, lon):
             img = Image.open(BytesIO(response.content))
 
             # check if the downloaded image was invalid and if so remove it
-            if img.size() == :
-                if size == FAILED_DOWNLOAD_IMAGE_SIZE:
-                    os.remove(filepath)
-                    misses += 1
-                else:
-                    num_in_alb += 1
+            if img.size() == FAILED_DOWNLOAD_IMAGE_SIZE:
+                misses += 1
+            else:
+                num_in_alb += 1
+
         num_imgs += 1
     print('invalid photo of {} downloaded {} times'.format(city, misses))
 #    file_utils.upload_directory_to_aws(cur_directory)
 
-def download_images():
+def download_images(args):
 
     # download images for each city in a different thread
+    args 
     num_threads = 8
     pool = ThreadPool(num_threads)
     for city, (lat, lon) in cities.items():
@@ -102,4 +101,4 @@ def download_images():
     pool.join()
 
 if __name__ == '__main__':
-    download_images()
+    download_images(sys.argv)

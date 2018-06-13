@@ -76,13 +76,13 @@ def write_labels_file(dataset_dir, train_output_filepath, val_output_filepath, t
         if filename in train_split:
             train_lines.append(string)
         else:
-            val_lines.append(string)        
+            val_lines.append(string)
 
     # write city labels to file
     with open(city_labels_filepath, 'w') as f:
         for city, cidx in city_labels.items():
             f.write('{} {}\n'.format(city,cidx))
-            
+
     # write train lines to file
     with open(train_output_filepath, 'w') as f:
         f.writelines(np.random.permutation(train_lines))

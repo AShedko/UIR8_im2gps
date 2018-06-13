@@ -6,20 +6,17 @@ import sys
 from multiprocessing.pool import ThreadPool
 import urllib
 
-import file_utils
+import file_util
+import pandas as pd
 
-cities = {
-"Paris" : (48.8567,2.3508),
- "London" : (51.5072,-0.1275),
- "Barcelona" : (41.3833,2.1833),
- "Moscow" : (55.7500,37.6167),
- "Sydney" : (-33.8650,151.2094),
- "Rio" : (-22.9068,-43.1729),
-"NYC" : (40.7127,-74.0059),
-"SanFran" : (37.7833,-122.4167),
- "Detroit" : (42.3314,-83.0458),
- "DC" : (38.9047,-77.0164)
-}
+ds = pd.read_csv("../data/simplemaps-worldcities-basic.csv") 
+
+# Heuristically select from DB cities likely to be on google maps
+cities = ds[ds["pop"]>20000][ds.iso3.isin([
+    "USA", "GBR", "FRA", "JAP", "POL", "AUS","ARG" ,"KOR"])].sample(100)[["city_ascii", "lat", "lng"]]
+cities.city_ascii = cities.city_ascii.apply(lambda x: x.replace(" ", "_"))
+cities = { city[0]: (city[1], city[2]) for city in cities.as_matrix()}
+
 
 # radius of the Earth
 R = 6378.1
@@ -28,7 +25,7 @@ R = 6378.1
 IMAGE_RADIUS = 10
 
 # number of images to download from each city
-NUM_IMAGES_PER_CITY = 200
+NUM_IMAGES_PER_CITY = 100
 
 # size of failed-download image
 FAILED_DOWNLOAD_IMAGE_SIZE = 3464
